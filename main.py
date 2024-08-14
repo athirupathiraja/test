@@ -4,13 +4,39 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+class Solution:
+    def __init__(self):
+        pass
+
+    def coin_change(self, amount, coins):
+        cache = {}
+        def dfs(amt, i):
+            if amt == 0:
+                return 1
+
+            if i >= len(coins) or amt < 0:
+                return 0
+
+            if (amt, i) in cache:
+                return cache[(amt, i)]
+
+            res = dfs(amt - coins[i], i) + dfs(amt, i+1)
+
+            cache[(amt, i)] = res
+
+            return res
+
+        return dfs(amount, 0)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+obj = Solution()
+coins = [1,2,5]
+res = obj.coin_change(5, coins)
+print(res)
+
+
+
+
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
